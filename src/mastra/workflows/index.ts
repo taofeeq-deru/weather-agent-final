@@ -1,9 +1,9 @@
-import { openai } from "@ai-sdk/openai";
+import { anthropic } from "@ai-sdk/anthropic";
 import { Agent } from "@mastra/core/agent";
 import { createStep, createWorkflow } from "@mastra/core/workflows";
 import { z } from "zod";
 
-const llm = openai("gpt-4o");
+const llm = anthropic("claude-3-5-sonnet-20240620");
 
 const agent = new Agent({
   name: "Weather Agent",
@@ -190,6 +190,7 @@ const weatherWorkflow = createWorkflow({
   })
 })
   .then(fetchWeather)
+  .sleep(5000)
   .then(planActivities);
 
 weatherWorkflow.commit();
