@@ -4,6 +4,7 @@ import { LibSQLStore } from "@mastra/libsql";
 import { UpstashTransport } from "@mastra/loggers/upstash";
 import { weatherWorkflow } from "./workflows";
 import { weatherAgent } from "./agents";
+import { v_nextNetwork, workflow1 } from "./networks";
 
 const upstashTransport = new UpstashTransport({
   upstashUrl: process.env.UPSTASH_URL!,
@@ -11,8 +12,11 @@ const upstashTransport = new UpstashTransport({
 });
 
 export const mastra = new Mastra({
-  workflows: { weatherWorkflow },
+  workflows: { weatherWorkflow, workflow1 },
   agents: { weatherAgent },
+  vnext_networks: {
+    v_nextNetwork
+  },
   storage: new LibSQLStore({
     url: process.env.TURSO_URL!,
     authToken: process.env.TURSO_TOKEN!
