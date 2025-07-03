@@ -189,8 +189,7 @@ const weatherWorkflow = createWorkflow({
     activities: z.string()
   })
 })
-  .then(fetchWeather)
-  .sleep(5000)
+  .waitForEvent("fetch-weather", fetchWeather)
   .then(planActivities);
 
 weatherWorkflow.commit();
