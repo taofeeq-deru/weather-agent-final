@@ -1,8 +1,8 @@
 import { anthropic } from "@ai-sdk/anthropic";
 import { Agent } from "@mastra/core/agent";
-import { weatherTool } from "../tools";
 import { Memory } from "@mastra/memory";
 import { LibSQLStore } from "@mastra/libsql";
+import { weatherWorkflowOnly } from "../workflows/weather-workflow";
 
 const memory = new Memory({
   storage: new LibSQLStore({
@@ -23,9 +23,9 @@ export const weatherAgent = new Agent({
       - Include relevant details like humidity, wind conditions, and precipitation
       - Keep responses concise but informative
 
-      Use the weatherTool to fetch current weather data.
+      Use the weatherWorkflowOnly to fetch current weather data. If there are two locations in the prompt, use the otherCity parameter in weatherWorkflowOnly inputSchema to fetch the weather for the second location.
 `,
   model: anthropic("claude-3-5-sonnet-20240620"),
-  tools: { weatherTool },
+  workflows: { weatherWorkflowOnly },
   memory
 });
