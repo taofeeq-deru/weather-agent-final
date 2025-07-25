@@ -1,14 +1,31 @@
 import { anthropic } from "@ai-sdk/anthropic";
+import { openai } from "@ai-sdk/openai";
 import { Agent } from "@mastra/core/agent";
 import { Memory } from "@mastra/memory";
 import { LibSQLStore } from "@mastra/libsql";
 import { weatherWorkflowOnly } from "../workflows/weather-workflow";
+import { z } from "zod";
 
 const memory = new Memory({
   storage: new LibSQLStore({
     url: process.env.TURSO_URL!,
     authToken: process.env.TURSO_TOKEN!
-  })
+  }),
+  options: {
+    workingMemory: {
+      enabled: true,
+      schema: z.object({
+        city: z.string(),
+        info: z.object({
+          temperature: z.number(),
+          humidity: z.number(),
+          windSpeed: z.number(),
+          precipitation: z.number(),
+          timezone: z.string().optional()
+        })
+      })
+    }
+  }
 });
 
 export const weatherAgent = new Agent({
@@ -25,7 +42,10 @@ export const weatherAgent = new Agent({
 
       Use the weatherWorkflowOnly to fetch current weather data. If there are two locations in the prompt, use the otherCity parameter in weatherWorkflowOnly inputSchema to fetch the weather for the second location.
 `,
-  model: anthropic("claude-3-5-sonnet-20240620"),
+  model: openai("gpt-4.1"),
+  // model: openai("gpt-4.1", {
+  //   structuredOutputs: true
+  // }),
   workflows: { weatherWorkflowOnly },
   memory
 });

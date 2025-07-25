@@ -7,7 +7,8 @@ const forecastSchema = z.object({
   minTemp: z.number(),
   precipitationChance: z.number(),
   condition: z.string(),
-  location: z.string()
+  location: z.string(),
+  timezone: z.string()
 });
 
 function getWeatherCondition(code: number): string {
@@ -71,6 +72,7 @@ const fetchWeather = createStep({
         precipitation_probability: number[];
         temperature_2m: number[];
       };
+      timezone: string;
     };
 
     const forecast = {
@@ -82,6 +84,7 @@ const fetchWeather = createStep({
         (acc, curr) => Math.max(acc, curr),
         0
       ),
+      timezone: data.timezone,
       location: inputData.city
     };
 
@@ -114,6 +117,7 @@ const fetchWeather = createStep({
           precipitation_probability: number[];
           temperature_2m: number[];
         };
+        timezone: string;
       };
 
       const forecast = {
@@ -125,6 +129,7 @@ const fetchWeather = createStep({
           (acc, curr) => Math.max(acc, curr),
           0
         ),
+        timezone: data.timezone,
         location: inputData.otherCity
       };
 
