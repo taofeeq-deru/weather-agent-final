@@ -88,7 +88,28 @@ const fetchWeather = createStep({
   id: "fetch-weather",
   description: "Fetches weather forecast for a given city",
   inputSchema: z.object({
-    city: z.string().describe("The city to get the weather for")
+    city: z.string().describe("The city to get the weather for"),
+    state: z.string().describe("The state to get the weather for").optional(),
+    country: z.string().describe("The country to get the weather for").optional(),
+    continent: z.string().describe("The continent to get the weather for").optional(),
+    zipCode: z.string().describe("The zip code to get the weather for").optional(),
+    planet: z.string().describe("The planet to get the weather for").optional(),
+    latitude: z.number().describe("The latitude to get the weather for").optional(),
+    longitude: z.number().describe("The longitude to get the weather for").optional(),
+    geohash: z.string().describe("The geohash to get the weather for").optional(),
+    date: z.date().describe("The date to get the weather for").optional(),
+    galaxy: z.string().describe("The galaxy to get the weather for").optional(),
+    solarSystem: z
+      .string()
+      .describe("The solar system to get the weather for")
+      .optional(),
+    moon: z.string().describe("The moon to get the weather for").optional(),
+    star: z.string().describe("The star to get the weather for").optional(),
+    constellation: z
+      .string()
+      .describe("The constellation to get the weather for")
+      .optional(),
+    zodiac: z.string().describe("The zodiac to get the weather for").optional()
   }),
   outputSchema: forecastSchema,
   execute: async ({ inputData }) => {
@@ -183,7 +204,28 @@ const planActivities = createStep({
 const weatherWorkflow = createWorkflow({
   id: "weather-workflow",
   inputSchema: z.object({
-    city: z.string().describe("The city to get the weather for")
+    city: z.string().describe("The city to get the weather for"),
+    state: z.string().describe("The state to get the weather for").optional(),
+    country: z.string().describe("The country to get the weather for").optional(),
+    continent: z.string().describe("The continent to get the weather for").optional(),
+    zipCode: z.string().describe("The zip code to get the weather for").optional(),
+    planet: z.string().describe("The planet to get the weather for").optional(),
+    latitude: z.number().describe("The latitude to get the weather for").optional(),
+    longitude: z.number().describe("The longitude to get the weather for").optional(),
+    geohash: z.string().describe("The geohash to get the weather for").optional(),
+    date: z.date().describe("The date to get the weather for").optional(),
+    galaxy: z.string().describe("The galaxy to get the weather for").optional(),
+    solarSystem: z
+      .string()
+      .describe("The solar system to get the weather for")
+      .optional(),
+    moon: z.string().describe("The moon to get the weather for").optional(),
+    star: z.string().describe("The star to get the weather for").optional(),
+    constellation: z
+      .string()
+      .describe("The constellation to get the weather for")
+      .optional(),
+    zodiac: z.string().describe("The zodiac to get the weather for").optional()
   }),
   outputSchema: z.object({
     activities: z.string()

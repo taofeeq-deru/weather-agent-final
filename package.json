@@ -24,7 +24,7 @@
   },
   "devDependencies": {
     "@types/node": "^22.14.1",
-    "mastra": "0.10.20",
+    "mastra": "0.0.0-taofeeq-fix-tool-call-showing-after-message-20250806162745",
     "tsx": "latest",
     "typescript": "^5.8.3"
   }
