@@ -109,7 +109,11 @@ const fetchWeather = createStep({
       .string()
       .describe("The constellation to get the weather for")
       .optional(),
-    zodiac: z.string().describe("The zodiac to get the weather for").optional()
+    zodiac: z.string().describe("The zodiac to get the weather for").optional(),
+    others: z
+      .array(z.string())
+      .describe("Other parameters to get the weather for")
+      .optional()
   }),
   outputSchema: forecastSchema,
   execute: async ({ inputData }) => {
@@ -225,7 +229,11 @@ const weatherWorkflow = createWorkflow({
       .string()
       .describe("The constellation to get the weather for")
       .optional(),
-    zodiac: z.string().describe("The zodiac to get the weather for").optional()
+    zodiac: z.string().describe("The zodiac to get the weather for").optional(),
+    others: z
+      .array(z.string())
+      .describe("Other parameters to get the weather for")
+      .optional()
   }),
   outputSchema: z.object({
     activities: z.string()
