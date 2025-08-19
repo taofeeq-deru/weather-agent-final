@@ -2,17 +2,8 @@ import { anthropic } from "@ai-sdk/anthropic";
 import { NewAgentNetwork } from "@mastra/core/network/vNext";
 import { Agent } from "@mastra/core/agent";
 import { createStep, createWorkflow } from "@mastra/core/workflows";
-import { LibSQLStore } from "@mastra/libsql";
-import { Memory } from "@mastra/memory";
 import { z } from "zod";
 import { weatherTool } from "../tools";
-
-const memory = new Memory({
-  storage: new LibSQLStore({
-    url: process.env.TURSO_URL!,
-    authToken: process.env.TURSO_TOKEN!
-  })
-});
 
 const agent1 = new Agent({
   name: "agent1",
@@ -95,13 +86,11 @@ export const v_nextNetwork = new NewAgentNetwork({
   agents: {
     agent1,
     agent2
-    // weatherAgent,
   },
   tools: {
     weatherTool
   },
   workflows: {
     workflow1
-  },
-  memory: memory
+  }
 });

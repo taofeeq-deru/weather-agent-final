@@ -1,15 +1,6 @@
 import { anthropic } from "@ai-sdk/anthropic";
 import { Agent } from "@mastra/core/agent";
 import { weatherTool } from "../tools";
-import { Memory } from "@mastra/memory";
-import { LibSQLStore } from "@mastra/libsql";
-
-const memory = new Memory({
-  storage: new LibSQLStore({
-    url: process.env.TURSO_URL!,
-    authToken: process.env.TURSO_TOKEN!
-  })
-});
 
 export const weatherAgent = new Agent({
   name: "Weather Agent",
@@ -26,6 +17,5 @@ export const weatherAgent = new Agent({
       Use the weatherTool to fetch current weather data.
 `,
   model: anthropic("claude-3-5-sonnet-20240620"),
-  tools: { weatherTool },
-  memory
+  tools: { weatherTool }
 });
